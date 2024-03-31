@@ -28,7 +28,7 @@ private final ExchangeNbyRepo repo;
         return repo.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
 
-    public ExchangeCourse search(Long date) {
+    public ExchangeCourse searchByDate(Long date) {
         //return repo.courseByDate("%" + date + "%");
         return repo.courseByDate(new Date(date));
 

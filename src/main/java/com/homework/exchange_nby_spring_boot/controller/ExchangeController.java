@@ -4,6 +4,7 @@ import com.homework.exchange_nby_spring_boot.models.ExchangeCourse;
 import com.homework.exchange_nby_spring_boot.service.ExchangeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.hibernate.query.Query;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,13 @@ public class ExchangeController {
          //   response.setStatus(HttpServletResponse.SC_NOT_FOUND);
      //       return DeleteUserResponse.failed(DeleteUserResponse.Error.userNotFound);
     //    }
-            return exchangeService.search(date);
+            return exchangeService.searchByDate(date);
+    }
+
+    @SneakyThrows
+    @GetMapping("/exchange/id/{id}")
+    public ExchangeCourse getById(@PathVariable ("id") Long id){
+        return exchangeService.getById(id);
     }
 
     //@GetMapping("/countOlderThan/{age}")

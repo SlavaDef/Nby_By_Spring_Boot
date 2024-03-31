@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Configuration
 class LoadDatabase {
@@ -19,10 +19,9 @@ class LoadDatabase {
     CommandLineRunner initDatabase(ExchangeNbyRepo repository) {
 
         return args -> {
-            log.info("Preloading " + repository.save(new ExchangeCourse(0.33, "Test CC",
-                    new Date(114,1,12))));
-            log.info("Preloading " + repository.save(new ExchangeCourse(0.44, "Test CC3",
-                    new Date(114,2,12))));
+            log.info("Preloading " + repository.save(new ExchangeCourse(0.33, "Test 1", LocalDate.now())));
+            log.info("Preloading " + repository.save(new ExchangeCourse(0.44, "Test 2",
+                    LocalDate.of(2024,2,15))));
         };
     }
 }
