@@ -38,15 +38,7 @@ public class ExchangeCourse {
 
     private String cc;
     @Temporal(value = TemporalType.DATE)
-    //  @JsonFormat(pattern = "dd.MM.yyyy")
     private Date exchangedate;
-
-    public ExchangeCourse(String txt, double rate, String cc, Date exchangedate) {
-        this.txt = txt;
-        this.rate = rate;
-        this.cc = cc;
-        this.exchangedate = exchangedate;
-    }
 
     public ExchangeCourse(double rate, String cc, Date exchangedate) {
         this.rate = rate;
