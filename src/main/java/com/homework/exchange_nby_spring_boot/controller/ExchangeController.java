@@ -2,15 +2,10 @@ package com.homework.exchange_nby_spring_boot.controller;
 
 import com.homework.exchange_nby_spring_boot.models.ExchangeCourse;
 import com.homework.exchange_nby_spring_boot.service.ExchangeService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.hibernate.query.Query;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import static com.homework.exchange_nby_spring_boot.utils.Util.getEurByTwoMonth;
@@ -28,39 +23,56 @@ public class ExchangeController {
         getUsdByTwoMonth(exchangeService);
     }
 
-    @PostMapping("/initEur")  // http://localhost:8080/init -> postman TO DO
+    @PostMapping("/initEur")  // http://localhost:8080/initEur -> postman TO DO
     public void inItEur() throws IOException {
-      //  getEurByTwoMonth(exchangeService);
+        getEurByTwoMonth(exchangeService);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") // http://localhost:8080/list -> postman
     public List<ExchangeCourse> getAll() { // http://localhost:8080/list -> postman returns list of courses in postman
-       return exchangeService.findAll();
+        return exchangeService.findAll();
     }
 
-    @GetMapping("/date/{date}")
-    public ExchangeCourse courseByDate(@PathVariable("date") Long date){
-      //  if(exchangeService.){
-         //   response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-     //       return DeleteUserResponse.failed(DeleteUserResponse.Error.userNotFound);
-    //    }
-            return exchangeService.searchByDate(date);
+    // Аннотация @PathVariable используется для связывания значений из URL с параметрами метода
+
+    @GetMapping("/dateOf/{year}/{month}/{day}") // http://localhost:8080/dateOf/2024/1/20 -> postman
+    public ExchangeCourse courseByDate(@PathVariable int year,
+                                       @PathVariable int month, @PathVariable int day) {
+        //if(exchangeService.){
+        //   response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        //       return DeleteUserResponse.failed(DeleteUserResponse.Error.userNotFound);
+        //    }
+        return exchangeService.searchByDate(year, month, day);
     }
 
     @SneakyThrows
     @GetMapping("/exchange/id/{id}")
-    public ExchangeCourse getById(@PathVariable ("id") Long id){
+    public ExchangeCourse getById(@PathVariable("id") Long id) {
         return exchangeService.getById(id);
     }
 
-    //@GetMapping("/countOlderThan/{age}")
-    //public int getCountPeopleAlderThen(@PathVariable("age") int age) {
-     //   return userService.countPeopleOlderThen(age);
-    //}
+    // //http://localhost:8080/dateOfMax/2024/1/20/2024/2/20
+    @GetMapping("/dateOfMax/{year}/{month}/{day}/{year2}/{month2}/{day2}")
+    public double maxCourseByDates(@PathVariable int year,
+                                @PathVariable int month, @PathVariable int day, @PathVariable int year2,
+                                @PathVariable int month2, @PathVariable int day2) {
 
+        return exchangeService.maxCourseByDate(year, month, day, year2, month2, day2);
+    }
+    @GetMapping("/dateOfMin/{year}/{month}/{day}/{year2}/{month2}/{day2}")
+    public double minCourseByDates(@PathVariable int year,
+                                @PathVariable int month, @PathVariable int day, @PathVariable int year2,
+                                @PathVariable int month2, @PathVariable int day2) {
 
+        return exchangeService.minCourseByDate(year, month, day, year2, month2, day2);
+    }
 
+    @GetMapping("/dateOfAvg/{year}/{month}/{day}/{year2}/{month2}/{day2}")
+    public double avgCourseByDates(@PathVariable int year,
+                                   @PathVariable int month, @PathVariable int day, @PathVariable int year2,
+                                   @PathVariable int month2, @PathVariable int day2) {
 
-
+        return exchangeService.avgCourseByDate(year, month, day, year2, month2, day2);
+    }
 
 }

@@ -19,9 +19,9 @@ class LoadDatabase {
     CommandLineRunner initDatabase(ExchangeNbyRepo repository) {
 
         return args -> {
-            log.info("Preloading " + repository.save(new ExchangeCourse(0.33, "Test 1", LocalDate.now())));
-            log.info("Preloading " + repository.save(new ExchangeCourse(0.44, "Test 2",
-                    LocalDate.of(2024,2,15))));
+            log.info("Preloading " + repository.save(new ExchangeCourse(38.33, "Test 1", LocalDate.now())));
+            log.info("Preloading " + repository.save(new ExchangeCourse(38.44, "Test 2",
+                    LocalDate.of(2024,3,15))));
         };
     }
 }
